@@ -1,10 +1,10 @@
-/* istanbul ignore file */
-module.exports = ({ key }, app) => async (ctx, next) => {
+'use strict'
+module.exports = ({ key }) => async (ctx, next) => {
   ctx.session[key] = ctx.session[key] || {}
   const flash = ctx.session[key]
   ctx.session[key] = {}
 
-  function set (msg) {
+  function set(msg) {
     ctx.session[key] = msg
   }
 
@@ -12,15 +12,14 @@ module.exports = ({ key }, app) => async (ctx, next) => {
   Object.defineProperty(ctx, 'flash', {
     set,
     get,
-    enumerable: true
+    enumerable: true,
   })
 
   ctx.request.flash = (type, msg) => {
     ctx.flash = { type, message: msg }
   }
-
-  ['success', 'error', 'info', 'warning'].forEach(type => {
-    ctx['flash' + type] = msg => (ctx.flash = { type, message: msg })
+  ;['success', 'error', 'info', 'warning'].forEach((type) => {
+    ctx['flash' + type] = (msg) => (ctx.flash = { type, message: msg })
   })
 
   await next()

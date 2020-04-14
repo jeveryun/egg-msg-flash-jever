@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * egg-msg-flash default config
@@ -7,4 +7,4 @@
  */
 exports.flash = {
   key: 'flash',
-};
+}
